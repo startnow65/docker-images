@@ -22,7 +22,7 @@ For more information on Oracle Database 19c refer to http://docs.oracle.com/en/d
 - NFS PV: https://kubernetes.io/docs/concepts/storage/volumes/#nfs
 - Using Oracle Database Docker image requires you to accept terms of service
 - Create image pull secrets
-    ``` 
+    ```
     $ kubectl create secret docker-registry regcred --docker-server=container-registry.oracle.com --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
     ```
 
@@ -54,7 +54,7 @@ To uninstall/delete the `db19c` deployment:
 
 Helm 3.x syntax
 ```
-$ helm uninstall db19c 
+$ helm uninstall db19c
 ```
 Helm 2.x syntax
 ```
@@ -67,20 +67,20 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following tables lists the configurable parameters of the Oracle  Database chart and their default values.
 
-| Parameter                            | Description                                | Default                                                    |
-| -------------------------------      | -------------------------------            | ---------------------------------------------------------- |
-| oracle_sid                           | Database name (ORACLE_SID)                 | ORCLCDB                                                    |
-| oracle_pdb                           | PDB name                                   | ORCLPDB1                                                   |
-| oracle_pwd                           | SYS, SYSTEM and PDB_ADMIN password         | Auto generated                                             |
-| oracle_characterset                  | The character set to use                   | AL32UTF8                                                   |
-| oracle_edition                       | The database edition                       | enterprise                                                 |
-| persistence.size                     | Size of persistence storage                | 100g                                                       |
-| persistence.storageClass             | Storage Class for PVC                      |                                                            |
-| loadBalService                       | Create a load balancer service instead of NodePort | false                                              |
-| image                                | Image to pull                              | container-registry.oracle.com/database/enterprise:19.3.0.0 |
-| imagePullPolicy                      | Image pull policy                          | Always                                                     |
-| imagePullSecrets                     | container registry login/password          |                                                            |
-| enable_archivelog                    | Set true to enable archive log mode when creating the database | false                                                      |
+| Parameter                         | Description                                | Default                                                    |
+| -------------------------------   | -------------------------------            | ---------------------------------------------------------- |
+| oracle_sid                        | Database name (ORACLE_SID)                 | ORCLCDB                                                    |
+| oracle_pdb                        | PDB name                                   | ORCLPDB1                                                   |
+| oracle_pwd                        | SYS, SYSTEM and PDB_ADMIN password         | Auto generated                                             |
+| oracle_characterset               | The character set to use                   | AL32UTF8                                                   |
+| oracle_edition                    | The database edition                       | enterprise                                                 |
+| persistence.size                  | Size of persistence storage                | 100g                                                       |
+| persistence.storageClass          | Storage Class for PVC                      |                                                            |
+| serviceType                       | Specifies the type of service to create    | NodePort                                                   |
+| image                             | Image to pull                              | container-registry.oracle.com/database/enterprise:19.3.0.0 |
+| imagePullPolicy                   | Image pull policy                          | Always                                                     |
+| imagePullSecrets                  | container registry login/password          |                                                            |
+| enable_archivelog                 | Set true to enable archive log mode when creating the database | false                                                      |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
@@ -108,12 +108,11 @@ $ helm install --name db19c -f values.yaml oracle-db-1.0.0.tgz
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
- 
+
 
 ## Persistence
 
 The [Oracle Database](https://www.oracle.com) image stores the Oracle Database data files  and configurations at the `/opt/oracle/oradata` path of the container.
 
-Persistent Volume Claims are used to keep the data across deployments. 
+Persistent Volume Claims are used to keep the data across deployments.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
-

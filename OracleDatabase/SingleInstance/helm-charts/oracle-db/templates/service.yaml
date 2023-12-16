@@ -9,11 +9,7 @@ metadata:
   name: {{ template "fullname" . }}
 {{- include "oracle-db-labels" . | indent 2 }}
 spec:
-{{- if .Values.loadBalService }}
-  type: LoadBalancer
-{{- else}}
-  type: NodePort
-{{- end }}
+  type: {{ .Values.serviceType }}
   ports:
   - name: listener
     port: 1521

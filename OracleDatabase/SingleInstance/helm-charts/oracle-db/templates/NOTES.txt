@@ -4,13 +4,13 @@
 #
 
 # ===========================================================================
-# == Add below entries to your tnsnames.ora to access this database server ==  
-# ====================== from external host =================================  
+# == Add below entries to your tnsnames.ora to access this database server ==
+# ====================== from external host =================================
 ORCLCDB=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=<ip-address>)(PORT=<port>))
     (CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=<ORACLE_SID>)))
 ORCLPDB1=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=<ip-address>)(PORT=<port>))
     (CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=<ORACLE_PDB>)))
-#                                                                              
+#
 #ip-address : IP address of any of the Kubernetes nodes
 #port       : Service Port that is mapped to the port 1521 of the container.
 #
@@ -18,13 +18,13 @@ ORCLPDB1=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=<ip-address>)(PORT=<port>))
 Application details
 ====================
 IP and port can be found using the following:
-{{- if .Values.loadBalService }}
+{{- if eq (default .Values.serviceType "LoadBalancer") "LoadBalancer" }}
 export LOAD_BALANCER_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].port}" services {{ template "fullname" . }})
 export LOAD_BALANCER_XDB_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[1].port}" services {{ template "fullname" . }})
 export LOAD_BALANCER_IP=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.status.loadBalancer.ingress[0].ip}" services {{ template "fullname" . }})
 echo listener at $LOAD_BALANCER_IP:$LOAD_BALANCER_PORT
 echo XDB at $LOAD_BALANCER_IP:$LOAD_BALANCER_XDB_PORT
-{{- else}}
+{{- else if eq (default .Values.serviceType "LoadBalancer") "NodePort" }}
 export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ template "fullname" . }})
 export NODE_XDB_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[1].nodePort}" services {{ template "fullname" . }})
 export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
