@@ -67,20 +67,22 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following tables lists the configurable parameters of the Oracle  Database chart and their default values.
 
-| Parameter                         | Description                                | Default                                                    |
-| -------------------------------   | -------------------------------            | ---------------------------------------------------------- |
-| oracle_sid                        | Database name (ORACLE_SID)                 | ORCLCDB                                                    |
-| oracle_pdb                        | PDB name                                   | ORCLPDB1                                                   |
-| oracle_pwd                        | SYS, SYSTEM and PDB_ADMIN password         | Auto generated                                             |
-| oracle_characterset               | The character set to use                   | AL32UTF8                                                   |
-| oracle_edition                    | The database edition                       | enterprise                                                 |
-| persistence.size                  | Size of persistence storage                | 100g                                                       |
-| persistence.storageClass          | Storage Class for PVC                      |                                                            |
-| serviceType                       | Specifies the type of service to create    | NodePort                                                   |
-| image                             | Image to pull                              | container-registry.oracle.com/database/enterprise:19.3.0.0 |
-| imagePullPolicy                   | Image pull policy                          | Always                                                     |
-| imagePullSecrets                  | container registry login/password          |                                                            |
-| enable_archivelog                 | Set true to enable archive log mode when creating the database | false                                                      |
+| Parameter                       | Description                                                    | Default                                                    |
+| ------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------- |
+| fullnameOverride                | Override the fullname of of resources                          |                                                            |
+| nameOverride                    | Set the name to use instead of the chart name                  |                                                            |
+| oracle_sid                      | Database name (ORACLE_SID)                                     | ORCLCDB                                                    |
+| oracle_pdb                      | PDB name                                                       | ORCLPDB1                                                   |
+| oracle_pwd                      | SYS, SYSTEM and PDB_ADMIN password                             | Auto generated                                             |
+| oracle_characterset             | The character set to use                                       | AL32UTF8                                                   |
+| oracle_edition                  | The database edition                                           | enterprise                                                 |
+| persistence.size                | Size of persistence storage                                    | 100g                                                       |
+| persistence.storageClass        | Storage Class for PVC                                          |                                                            |
+| serviceType                     | Specifies the type of service to create                        | NodePort                                                   |
+| image                           | Image to pull                                                  | container-registry.oracle.com/database/enterprise:19.3.0.0 |
+| imagePullPolicy                 | Image pull policy                                              | Always                                                     |
+| imagePullSecrets                | container registry login/password                              |                                                            |
+| enable_archivelog               | Set true to enable archive log mode when creating the database | false                                                      |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
